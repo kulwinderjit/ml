@@ -9,11 +9,15 @@ function [J, grad] = linearRegCostFunction(X, y, theta, lambda)
 m = length(y); % number of training examples
 
 % You need to return the following variables correctly 
+%sprintf("Size of X")
+%size(X)
+%sprintf("Size of theta ")
+%size(theta)
 J = 0;
 grad = zeros(size(theta));
 x = X;
-J = sum((x*theta - y).^2)/(2*m) + theta(2:end,:).^2*lambda/(2*m);
-grad = sum((x*theta - y) .* x)'./m + [0; theta(2:end,:)] .* lambda/m;
+J = sum((x*theta - y).^2, 1)/(2*m) + sum(theta(2:end,:).^2)*lambda/(2*m);
+grad = sum((x*theta - y) .* x, 1)./m + [0; theta(2:end,:)]' .* lambda/m;
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost and gradient of regularized linear 
 %               regression for a particular choice of theta.
@@ -35,5 +39,6 @@ grad = sum((x*theta - y) .* x)'./m + [0; theta(2:end,:)] .* lambda/m;
 % =========================================================================
 
 grad = grad(:);
-
+%sprintf("Size of grad")
+%size(grad)
 end
